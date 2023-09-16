@@ -17,7 +17,7 @@ const winCombos = [
 	[0, 4, 8],
 	[6, 4, 2]
 ]
-var origBoard;
+var virtualBoard;
 
 const playerX = 'X';
 const playerO = 'O';
@@ -33,7 +33,7 @@ function startGame() {
     userMode = gameModeField.options[gameModeField.selectedIndex].value;
     userLogin = loginField.value;
 
-    origBoard = Array.from(Array(9).keys());
+    virtualBoard = Array.from(Array(9).keys());
 	
     for (var i = 0; i < cells.length; i++) {
 		cells[i].addEventListener('click', turnClick, false);
@@ -64,31 +64,29 @@ function clearTable() {
 }
 
 function turnClick(event) {
-    if (typeof origBoard[event.target.id] == 'number') {
-        if(userMode == "") {
-            if(whoTurn == "X") {
+    if (typeof virtualBoard[event.target.id] == 'number') {
+        if (userMode == "player-player") {
+            if (whoTurn == "X") {
                 turn(event.target.id, playerX);
+                whoTurn = "O";
+                checkDraw();
             } else {
                 turn(event.target.id, playerO);
+                whoTurn = "X";
+                checkDraw();
             }
-
-
         } else {
             turn(event.target.id, playerX);
-        }
-        
-        
-        
 
-        if (!checkWin(origBoard, playerX) && !checkDraw()) {
+            if (!checkWin(virtualBoard, playerX) && !checkDraw()) {
                 turn(bestSpot(), playerO);
+            }
         }
     }
-
 }
 
 function turn(eId, player) {
-    origBoard[eId] = player;
+    virtualBoard[eId] = player;
 
     if(player == playerX) {
         cells[eId].classList.add('xFig');
@@ -96,7 +94,7 @@ function turn(eId, player) {
         cells[eId].classList.add('oFig');
     }
 
-	let gameWon = checkWin(origBoard, player);
+	let gameWon = checkWin(virtualBoard, player);
 	
     if (gameWon) {
         gameOver(gameWon)
@@ -128,11 +126,11 @@ function checkDraw() {
 }
 
 function emptySquares() {
-	return origBoard.filter(s => typeof s == 'number');
+	return virtualBoard.filter(s => typeof s == 'number');
 }
 
 function bestSpot() {
-	return minimax(origBoard, playerO).index;
+	return minimax(virtualBoard, playerO).index;
 }
 
 function minimax(newBoard, player) {
@@ -194,7 +192,11 @@ function gameOver(gameWon) {
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
-	declareWinner(gameWon.player == playerX ? `${userLogin}, чудом выграл у ПК` : `${userLogin}, позорно проиграл ПК`);
+    if (userMode == "player-ii") {
+	    declareWinner(gameWon.player == playerX ? `${userLogin}, чудом выграл у ПК` : `${userLogin}, позорно проиграл ПК`);
+    } else {
+        declareWinner(gameWon.player == playerX ? `Победу одержал Х` : `Победу одержал О`);
+    }
 }
 
 function declareWinner(who) {
