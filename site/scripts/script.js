@@ -3,6 +3,9 @@ var table = document.getElementById('tictactoe');
 var cells = table.getElementsByClassName('cell');
 var contrCont = document.querySelector('.controls-container');
 var startButton = contrCont.querySelector('input[type="button"]');
+var userMode;
+var userLogin;
+var whoTurn;
 
 const winCombos = [
 	[0, 1, 2],
@@ -23,7 +26,13 @@ const playerO = 'O';
 
 function startGame() {
 	document.querySelector(".endgame").style.display = "none";
-	
+
+    var loginField = contrCont.querySelector('input[name = "Login"]');
+    var gameModeField = contrCont.querySelector('select[name = "gameMode"]')
+    
+    userMode = gameModeField.options[gameModeField.selectedIndex].value;
+    userLogin = loginField.value;
+
     origBoard = Array.from(Array(9).keys());
 	
     for (var i = 0; i < cells.length; i++) {
@@ -36,6 +45,8 @@ function startGame() {
             e.target.classList.remove('selected');
         });
 	}
+
+    whoTurn = playerX;
 }
 
 function checkStyleDisplayTable() {
@@ -54,11 +65,24 @@ function clearTable() {
 
 function turnClick(event) {
     if (typeof origBoard[event.target.id] == 'number') {
-    turn(event.target.id, playerX);
-    
-    if (!checkWin(origBoard, playerX) && !checkDraw()) {
-        turn(bestSpot(), playerO);
-    }
+        if(userMode == "") {
+            if(whoTurn == "X") {
+                turn(event.target.id, playerX);
+            } else {
+                turn(event.target.id, playerO);
+            }
+
+
+        } else {
+            turn(event.target.id, playerX);
+        }
+        
+        
+        
+
+        if (!checkWin(origBoard, playerX) && !checkDraw()) {
+                turn(bestSpot(), playerO);
+        }
     }
 
 }
@@ -170,7 +194,7 @@ function gameOver(gameWon) {
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
-	declareWinner(gameWon.player == playerX ? "Вы выграли!" : "Вы проиграли!");
+	declareWinner(gameWon.player == playerX ? `${userLogin}, чудом выграл у ПК` : `${userLogin}, позорно проиграл ПК`);
 }
 
 function declareWinner(who) {
@@ -183,9 +207,10 @@ function declareWinner(who) {
 startButton.addEventListener('click', ()=> {
     var loginField = contrCont.querySelector('input[name = "Login"]');
     var gameModeField = contrCont.querySelector('select[name = "gameMode"]')
-    var userLogin = loginField.value;
-    var userMode = gameModeField.options[gameModeField.selectedIndex].value;
     
+    userMode = gameModeField.options[gameModeField.selectedIndex].value;
+    userLogin = loginField.value;
+
     if(userLogin.length > 1){
         checkStyleDisplayTable();
         clearTable();
@@ -203,18 +228,3 @@ if (table == null) {
 }
 
 
-
-
-
-/// работает
-// for(let i = 0; i < cells.length; i++) {
-//         cells[i].addEventListener('mouseover', (e) => {
-//             e.target.classList.add('selected');
-//         });
-//         cells[i].addEventListener('mouseout', (e) => {
-//             e.target.classList.remove('selected');
-//         });
-//         cells[i].addEventListener('click', (e) => {
-//             e.target.classList.add('xFig');
-//         });
-// }
