@@ -36,14 +36,15 @@ function startGame() {
     virtualBoard = Array.from(Array(9).keys());
 	
     for (var i = 0; i < cells.length; i++) {
-		cells[i].addEventListener('click', turnClick, false);
-        
+
         cells[i].addEventListener('mouseover', (e) => {
             e.target.classList.add('selected');
         });
         cells[i].addEventListener('mouseout', (e) => {
             e.target.classList.remove('selected');
         });
+
+        cells[i].addEventListener('click', turnClick, false);
 	}
 
     whoTurn = playerX;
@@ -59,7 +60,7 @@ function clearTable() {
     for(let i = 0; i < cells.length; i++) {
         cells[i].classList.remove('xFig');
         cells[i].classList.remove('oFig');
-        cells[i].style.backgroundColor = '#78cdabec';
+        cells[i].style.backgroundColor = '';
     }
 }
 
@@ -90,6 +91,7 @@ function turn(eId, player) {
 
     if(player == playerX) {
         cells[eId].classList.add('xFig');
+        
     } else if(player == playerO) {
         cells[eId].classList.add('oFig');
     }

@@ -121,4 +121,23 @@ table tr td:last-child {
     color: rgb(0, 0, 0);
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 1.5em;
+    animation-duration: 2.5s;
+    animation-name: openning;
 }
+
+@keyframes openning {
+    from {
+        font-size: 0.0em;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 75px;
+    }
+  
+    to {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        font-size: 1.5em;
+        border-radius: 5px;
+    }
+  }
+  
