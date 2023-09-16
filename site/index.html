@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>DOOM</title>
+</head>
+<body>
+    <div class="container">
+        <H1>Крестики нолики</H1>
+
+        <div class="controls-container">
+            <label>
+                <input type="text" name="Login" placeholder="Введите свое имя">
+            </label>
+            <label>
+                <select name = "gameMode">
+                    <option value="player-ii">Играть против компьютера Т1000</option>
+                    <option value="player-player">Игрок против игрока</option>
+                </select>
+            </label>
+            <label>
+                <input type="button" value="Старт" class="btn_start">
+            </label>
+
+        </div>
+
+        <table id="tictactoe" class="myTable">
+            <tr>
+                <td class="cell" id="0"></td>
+                <td class="cell" id="0"></td>
+                <td class="cell" id="0"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
