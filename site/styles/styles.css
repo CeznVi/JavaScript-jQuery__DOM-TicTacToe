@@ -100,15 +100,31 @@ table tr td:last-child {
 }
 
 .xFig {
-    background-image: url('red.png');
+    background-image: url('/styles/img/red.png');
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: center center;
 }
 
 .oFig {
-    background-image: url('red_0.png');
+    background-image: url('/styles/img/red_0.png');
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: center center;
 }
+
+.endgame {
+    display: none;
+    width: 200px;
+    top: 200px;
+    background-color:  #2efff1;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 2em;
+  }
