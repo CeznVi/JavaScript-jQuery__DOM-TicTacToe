@@ -3,6 +3,7 @@ var table = document.getElementById('tictactoe');
 var cells = table.getElementsByClassName('cell');
 var contrCont = document.querySelector('.controls-container');
 var startButton = contrCont.querySelector('input[type="button"]');
+
 const winCombos = [
 	[0, 1, 2],
 	[3, 4, 5],
@@ -14,13 +15,26 @@ const winCombos = [
 	[6, 4, 2]
 ]
 var origBoard;
+
+const playerX = 'X';
+const playerO = 'O';
+
 //// * ------------------------------------ Функции -----------------------------------------------
 
 function startGame() {
 	document.querySelector(".endgame").style.display = "none";
-	origBoard = Array.from(Array(9).keys());
-	for (var i = 0; i < cells.length; i++) {
+	
+    origBoard = Array.from(Array(9).keys());
+	
+    for (var i = 0; i < cells.length; i++) {
 		cells[i].addEventListener('click', turnClick, false);
+        
+        cells[i].addEventListener('mouseover', (e) => {
+            e.target.classList.add('selected');
+        });
+        cells[i].addEventListener('mouseout', (e) => {
+            e.target.classList.remove('selected');
+        });
 	}
 }
 
@@ -37,11 +51,24 @@ function clearTable() {
     }
 }
 
-function turnClick(square) {
-	if (typeof origBoard[square.target.id] == 'number') {
-		turn(square.target.id, huPlayer)
-		if (!checkWin(origBoard, huPlayer) && !checkTie()) turn(bestSpot(), aiPlayer);
-	}
+function turnClick(event) {
+	turn(event.target, playerX)
+		//if (!checkWin(origBoard, huPlayer) && !checkTie()) turn(bestSpot(), aiPlayer);
+}
+
+function turn(eId, player) {
+	
+    origBoard[eId] = player;
+
+    if(player == playerX) {
+        eId.classList.add('xFig');
+    } else if(player == playerO) {
+        eId.classList.add('oFig');
+
+    }
+
+	// let gameWon = checkWin(origBoard, player)
+	// if (gameWon) gameOver(gameWon)
 }
 
 //// * ------------------------------------ Инициализация -----------------------------------------------

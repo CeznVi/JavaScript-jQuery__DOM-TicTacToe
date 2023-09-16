@@ -126,5 +126,6 @@ table tr td:last-child {
     text-align: center;
     border-radius: 5px;
     color: white;
-    font-size: 2em;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 27px;
   }
