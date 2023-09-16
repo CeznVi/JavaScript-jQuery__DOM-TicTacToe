@@ -48,14 +48,17 @@ function clearTable() {
     for(let i = 0; i < cells.length; i++) {
         cells[i].classList.remove('xFig');
         cells[i].classList.remove('oFig');
+        cells[i].style.backgroundColor = '#78cdabec';
     }
 }
 
 function turnClick(event) {
-	turn(event.target, playerX)
+    if (typeof origBoard[event.target.id] == 'number') {
+    turn(event.target.id, playerX);
     
     if (!checkWin(origBoard, playerX) && !checkDraw()) {
         turn(bestSpot(), playerO);
+    }
     }
 
 }
@@ -64,7 +67,7 @@ function turn(eId, player) {
     origBoard[eId] = player;
 
     if(player == playerX) {
-        eId.classList.add('xFig');
+        cells[eId].classList.add('xFig');
     } else if(player == playerO) {
         cells[eId].classList.add('oFig');
     }
@@ -182,9 +185,15 @@ startButton.addEventListener('click', ()=> {
     var gameModeField = contrCont.querySelector('select[name = "gameMode"]')
     var userLogin = loginField.value;
     var userMode = gameModeField.options[gameModeField.selectedIndex].value;
-    checkStyleDisplayTable();
-    clearTable();
-    startGame();
+    
+    if(userLogin.length > 1){
+        checkStyleDisplayTable();
+        clearTable();
+        startGame();
+    } else {
+        alert("Чтобы начать игру необходимо ввести логин");
+    }
+    
 });
 
 //// * ------------------------------------ Игровой процесс -----------------------------------------------

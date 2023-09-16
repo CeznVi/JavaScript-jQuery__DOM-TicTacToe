@@ -16,7 +16,6 @@ h1 {
     text-align: center;
 }
 
-
 .controls-container {
     margin: 0 auto;
     padding-bottom: 40px;
@@ -58,8 +57,6 @@ input[type="text"] {
     font-weight: bold;
 }
 
-
-
 .myTable {
     display: none;
     margin: 0 auto;
@@ -89,10 +86,6 @@ table tr td:first-child {
 table tr td:last-child {
 	border-right: 0;
 }
-
-
-
-
 
 .selected {
     background-color: rgb(222, 186, 116);
@@ -125,7 +118,7 @@ table tr td:last-child {
     padding-bottom: 50px;
     text-align: center;
     border-radius: 5px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: "Comic Sans MS", cursive, sans-serif;
-    font-size: 27px;
-  }
+    font-size: 1.5em;
+}
